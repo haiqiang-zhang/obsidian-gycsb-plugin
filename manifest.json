@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "ycsb-plugin",
+	"name": "YCSB Benchmark Plugin",
 	"version": "1.0.0",
-	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"minAppVersion": "1.10.6",
+	"description": "This plugin is used to run YCSB benchmarks on Obsidian.",
+	"author": "Haiqiang Zhang",
+	"authorUrl": "https://github.com/haiqiang-zhang",
 	"isDesktopOnly": false
 }

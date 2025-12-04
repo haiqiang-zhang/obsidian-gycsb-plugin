@@ -1,8 +1,26 @@
 /*
+ * YCSB Benchmark Plugin Styles
+ */
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+/* Run button styling */
+.ycsb-run-button {
+	color: var(--text-normal);
+}
 
-If your plugin does not need CSS, delete this file.
+.ycsb-run-button:hover {
+	color: var(--interactive-accent);
+}
 
-*/
+/* Active/running state */
+.ycsb-run-button.is-running {
+	animation: ycsb-pulse 1s infinite;
+}
+
+@keyframes ycsb-pulse {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
