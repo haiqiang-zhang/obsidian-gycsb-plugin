@@ -119,7 +119,12 @@ export default class YCSBBenchmarkPlugin extends Plugin {
 			basePath, 
 			this.settings.runPropertyName
 		);
-		await runBenchmarks(this.settings.apiUrl, entries);
+		await runBenchmarks(
+			this.settings.apiUrl, 
+			entries,
+			this.settings.runningNameTemplate,
+			this.settings.runPropertyName
+		);
 	}
 
 	/**
@@ -132,7 +137,12 @@ export default class YCSBBenchmarkPlugin extends Plugin {
 				basePath,
 				this.settings.runPropertyName
 			);
-			await runBenchmarks(this.settings.apiUrl, entries);
+			await runBenchmarks(
+				this.settings.apiUrl, 
+				entries,
+				this.settings.runningNameTemplate,
+				this.settings.runPropertyName
+			);
 		}
 	}
 }

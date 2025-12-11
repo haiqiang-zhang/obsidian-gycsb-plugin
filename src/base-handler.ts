@@ -34,7 +34,7 @@ export function extractYamlFromBody(content: string): string {
 	}
 
 	// Look for YAML code blocks in the body
-	const yamlBlockMatch = bodyContent.match(/```ya?ml\n([\s\S]*?)```/);
+	const yamlBlockMatch = bodyContent.match(/```yaml_ycsb_run\n([\s\S]*?)```/);
 	let yamlContent = '';
 	if (yamlBlockMatch) {
 		yamlContent = yamlBlockMatch[1].trim();
@@ -78,6 +78,30 @@ export function getPropertyValue(
 }
 
 /**
+ * Get all frontmatter properties from a file
+ * @param app The Obsidian App instance
+ * @param file The file to get properties from
+ * @returns Record of all frontmatter properties
+ */
+export function getAllProperties(app: App, file: TFile): Record<string, unknown> {
+	const cache = app.metadataCache.getFileCache(file);
+	if (cache?.frontmatter) {
+		// Create a copy and process link values
+		const properties: Record<string, unknown> = {};
+		for (const [key, value] of Object.entries(cache.frontmatter)) {
+			if (typeof value === 'string') {
+				// Strip [[]] if the value is a link
+				properties[key] = value.replace(/^\[\[(.+?)\]\]$/, '$1');
+			} else {
+				properties[key] = value;
+			}
+		}
+		return properties;
+	}
+	return {};
+}
+
+/**
  * Get all benchmark entries from a base file
  * @param app The Obsidian App instance
  * @param baseFilePath Path to the .base file
@@ -116,12 +140,15 @@ export async function getBenchmarkEntries(
 			const content = await app.vault.read(file);
 			const yamlContent = extractYamlFromBody(content);
 			const variables = getPropertyValue(app, file, '[>] variables');
+			const properties = getAllProperties(app, file);
 			
+			console.log('[YCSB] Properties:', properties);
 			entries.push({
 				filePath: file.path,
 				yamlContent,
 				isRun,
 				variables,
+				properties,
 			});
 		}
 	}

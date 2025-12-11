@@ -45,6 +45,18 @@ export class YCSBSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}));
 
+		// Running name template setting
+		new Setting(containerEl)
+			.setName('Running name template')
+			.setDesc('Template for generating running_name. Use {propertyName} to insert any frontmatter property value, and {filename} for the file name without extension.')
+			.addText(text => text
+				.setPlaceholder('{Operation}_{filename}')
+				.setValue(this.plugin.settings.runningNameTemplate)
+				.onChange(async (value) => {
+					this.plugin.settings.runningNameTemplate = value || '{Operation}_{filename}';
+					await this.plugin.saveSettings();
+				}));
+
 		// Enabled base files section
 		containerEl.createEl('h2', { text: 'Enabled base files' });
 		containerEl.createEl('p', { 

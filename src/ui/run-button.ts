@@ -100,8 +100,12 @@ export function updateRunButtonOnLeaf(
 
 	// Create and add the button
 	const runButton = createRunButton(async () => {
-		const entries = await getRunnableBenchmarks(app, basePath, settings.runPropertyName);
-		await runBenchmarks(settings.apiUrl, entries);
+		const entries = await getRunnableBenchmarks(
+			app, 
+			basePath, 
+			settings.runPropertyName
+		);
+		await runBenchmarks(settings.apiUrl, entries, settings.runningNameTemplate, settings.runPropertyName);
 	});
 
 	// Insert at the beginning of the actions
