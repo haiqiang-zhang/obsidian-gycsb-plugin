@@ -1,9 +1,9 @@
 {
-	"id": "ycsb-plugin",
-	"name": "YCSB Benchmark Plugin",
-	"version": "1.0.0",
+	"id": "gycsb-plugin",
+	"name": "gYCSB Plugin",
+	"version": "0.1.0",
 	"minAppVersion": "1.10.6",
-	"description": "This plugin is used to run YCSB benchmarks on Obsidian.",
+	"description": "This plugin is used to run gYCSB benchmarks on Obsidian.",
 	"author": "Haiqiang Zhang",
 	"authorUrl": "https://github.com/haiqiang-zhang",
 	"isDesktopOnly": false
