@@ -1,6 +1,6 @@
 {
 	"id": "gycsb-plugin",
-	"name": "gYCSB Plugin",
+	"name": "gYCSB",
 	"version": "0.1.0",
 	"minAppVersion": "1.10.6",
 	"description": "This plugin is used to run gYCSB benchmarks on Obsidian.",

@@ -18,9 +18,6 @@ export class YCSBSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		// Header
-		containerEl.createEl('h1', { text: 'YCSB Benchmark settings' });
-
 		// API URL setting
 		new Setting(containerEl)
 			.setName('YCSB Benchmark API URL')
@@ -57,13 +54,9 @@ export class YCSBSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}));
 
+			
 		// Enabled base files section
-		containerEl.createEl('h2', { text: 'Enabled base files' });
-		containerEl.createEl('p', { 
-			text: 'Select the base files where you want to enable the YCSB benchmark functionality.',
-			cls: 'setting-item-description'
-		});
-
+		new Setting(containerEl).setName('Enabled base files').setHeading();
 		
 		let inputEl: HTMLInputElement;
 		new Setting(containerEl)
@@ -90,14 +83,16 @@ export class YCSBSettingTab extends PluginSettingTab {
 					}
 				}));
 
-		// Display enabled base files
+		// Display enabled base files as nested items under "Base file path"
 		const enabledPaths = this.plugin.settings.enabledBasePaths;
 		if (enabledPaths.length > 0) {
+			// Create a nested container to visually group these as sub-items
+			const enabledFilesContainer = containerEl.createDiv('gycsb-enabled-files-container');
 			
-			for (const filePath of enabledPaths) {
+			enabledPaths.forEach((filePath) => {
 				const fileName = filePath.split('/').pop() || filePath;
 				
-				new Setting(containerEl)
+				new Setting(enabledFilesContainer)
 					.setName(fileName)
 					.setDesc(filePath)
 					.addButton(button => button
@@ -110,7 +105,7 @@ export class YCSBSettingTab extends PluginSettingTab {
 							this.plugin.refreshRunButtons(); // Update run buttons
 							this.display(); // Refresh the settings display
 						}));
-			}
+			});
 		}
 	}
 }

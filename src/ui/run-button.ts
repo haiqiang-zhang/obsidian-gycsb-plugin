@@ -7,7 +7,7 @@ import { getRunnableBenchmarks } from '../base-handler';
 import { runBenchmarks } from '../api';
 import { YCSBPluginSettings } from '../types';
 
-const RUN_BUTTON_CLASS = 'ycsb-run-button';
+const RUN_BUTTON_CLASS = 'base-toolbar-gycsb-run-button';
 
 /**
  * Create a run button element
@@ -15,12 +15,27 @@ const RUN_BUTTON_CLASS = 'ycsb-run-button';
  * @returns The button element
  */
 function createRunButton(onClick: () => void): HTMLElement {
-	const button = document.createElement('button');
-	button.className = `clickable-icon view-action ${RUN_BUTTON_CLASS}`;
-	button.title = 'Run YCSB benchmarks';
-	
+	const button = document.createElement('div');
+	button.className = `bases-toolbar-item ${RUN_BUTTON_CLASS}`;
+
+	const div_text_icon_button = document.createElement('div');
+	div_text_icon_button.className = `text-icon-button`;
+
+	const text_button_icon = document.createElement('span');
+	text_button_icon.className = 'text-button-icon';
 	// Add play icon
-	setIcon(button, 'play');
+	setIcon(text_button_icon, 'play');
+
+	const text_button_label = document.createElement('span');
+	text_button_label.className = 'text-button-label';
+	text_button_label.textContent = 'gYCSB';
+
+	div_text_icon_button.appendChild(text_button_icon);
+	div_text_icon_button.appendChild(text_button_label);
+
+
+	button.appendChild(div_text_icon_button);
+	
 	
 	button.addEventListener('click', (evt) => {
 		evt.stopPropagation();
@@ -82,7 +97,7 @@ export function updateRunButtonOnLeaf(
 
 	// Try multiple selectors for the view header
 	const selectors = [
-		'.view-header .view-actions'
+		'.bases-toolbar'
 	];
 	
 	let viewHeader: Element | null = null;
@@ -100,16 +115,24 @@ export function updateRunButtonOnLeaf(
 
 	// Create and add the button
 	const runButton = createRunButton(async () => {
-		const entries = await getRunnableBenchmarks(
-			app, 
-			basePath, 
-			settings.runPropertyName
-		);
-		await runBenchmarks(settings.apiUrl, entries, settings.runningNameTemplate, settings.runPropertyName);
+		// Add running state
+		runButton.classList.add('is-running');
+		
+		try {
+			const entries = await getRunnableBenchmarks(
+				app, 
+				basePath, 
+				settings.runPropertyName
+			);
+			await runBenchmarks(settings.apiUrl, entries, settings.runningNameTemplate, settings.runPropertyName);
+		} finally {
+			// Remove running state when done
+			runButton.classList.remove('is-running');
+		}
 	});
 
 	// Insert at the beginning of the actions
-	viewHeader.insertBefore(runButton, viewHeader.firstChild);
+	viewHeader.insertBefore(runButton, viewHeader.querySelector('.bases-toolbar-sort-menu'));
 }
 
 /**

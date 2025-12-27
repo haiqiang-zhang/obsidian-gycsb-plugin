@@ -3,24 +3,48 @@
  */
 
 /* Run button styling */
-.ycsb-run-button {
+.base-toolbar-gycsb-run-button {
 	color: var(--text-normal);
 }
 
-.ycsb-run-button:hover {
+.base-toolbar-gycsb-run-button:hover {
 	color: var(--interactive-accent);
 }
 
 /* Active/running state */
-.ycsb-run-button.is-running {
-	animation: ycsb-pulse 1s infinite;
+.base-toolbar-gycsb-run-button.is-running {
+	animation: gycsb-pulse 1s infinite;
 }
 
-@keyframes ycsb-pulse {
+@keyframes gycsb-pulse {
 	0%, 100% {
 		opacity: 1;
 	}
 	50% {
 		opacity: 0.5;
 	}
+}
+
+/* Enabled base files container - nested under "Base file path" */
+.gycsb-enabled-files-container {
+	margin-left: 1.5rem;
+	margin-top: 0.5rem;
+	padding-left: 1rem;
+	border-left: 2px solid var(--background-modifier-border);
+	opacity: 0.9;
+}
+
+.gycsb-enabled-files-container .setting-item {
+	margin-top: 0.75rem;
+}
+
+.gycsb-enabled-files-container .setting-item-name {
+	font-size: 0.9em;
+	color: var(--text-muted);
+}
+
+.gycsb-enabled-files-container .setting-item-description {
+	font-size: 0.85em;
+	color: var(--text-faint);
+	font-family: var(--font-monospace);
 }
