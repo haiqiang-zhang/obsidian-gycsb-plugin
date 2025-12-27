@@ -106,12 +106,14 @@ export function getAllProperties(app: App, file: TFile): Record<string, unknown>
  * @param app The Obsidian App instance
  * @param baseFilePath Path to the .base file
  * @param runPropertyName The frontmatter property name to check for run status
+ * @param variablesPropertyName The frontmatter property name to get variables
  * @returns List of benchmark entries
  */
 export async function getBenchmarkEntries(
 	app: App,
 	baseFilePath: string,
-	runPropertyName: string
+	runPropertyName: string,
+	variablesPropertyName: string
 ): Promise<BenchmarkEntry[]> {
 	const entries: BenchmarkEntry[] = [];
 
@@ -139,7 +141,7 @@ export async function getBenchmarkEntries(
 		if (isRun) {
 			const content = await app.vault.read(file);
 			const yamlContent = extractYamlFromBody(content);
-			const variables = getPropertyValue(app, file, '[>] variables');
+			const variables = getPropertyValue(app, file, variablesPropertyName);
 			const properties = getAllProperties(app, file);
 			
 			console.log('[YCSB] Properties:', properties);
@@ -161,14 +163,16 @@ export async function getBenchmarkEntries(
  * @param app The Obsidian App instance
  * @param baseFilePath Path to the .base file
  * @param runPropertyName The frontmatter property name to check for run status
+ * @param variablesPropertyName The frontmatter property name to get variables
  * @returns List of benchmark entries where run property is true
  */
 export async function getRunnableBenchmarks(
 	app: App,
 	baseFilePath: string,
-	runPropertyName: string
+	runPropertyName: string,
+	variablesPropertyName: string
 ): Promise<BenchmarkEntry[]> {
-	const allEntries = await getBenchmarkEntries(app, baseFilePath, runPropertyName);
+	const allEntries = await getBenchmarkEntries(app, baseFilePath, runPropertyName, variablesPropertyName);
 	return allEntries.filter(entry => entry.isRun);
 }
 

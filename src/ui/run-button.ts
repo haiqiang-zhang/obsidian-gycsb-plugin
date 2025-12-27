@@ -122,7 +122,8 @@ export function updateRunButtonOnLeaf(
 			const entries = await getRunnableBenchmarks(
 				app, 
 				basePath, 
-				settings.runPropertyName
+				settings.runPropertyName,
+				settings.variablesPropertyName
 			);
 			await runBenchmarks(settings.apiUrl, entries, settings.runningNameTemplate, settings.runPropertyName);
 		} finally {

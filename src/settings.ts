@@ -11,6 +11,7 @@ export const DEFAULT_SETTINGS: YCSBPluginSettings = {
 	apiUrl: 'http://localhost:5000/api/ycsb',
 	enabledBasePaths: [],
 	runPropertyName: 'is_run',
+	variablesPropertyName: '[>] variables',
 	runningNameTemplate: '{Operation}_{filename}',
 };
 

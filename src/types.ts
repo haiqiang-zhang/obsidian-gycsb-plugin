@@ -12,6 +12,8 @@ export interface YCSBPluginSettings {
 	enabledBasePaths: string[];
 	/** The frontmatter property name used to determine if a benchmark should run */
 	runPropertyName: string;
+	/** The frontmatter property name used to get variables (default: '[>] variables') */
+	variablesPropertyName: string;
 	/** Template for generating running_name, supports {propertyName} and {filename} placeholders */
 	runningNameTemplate: string;
 }

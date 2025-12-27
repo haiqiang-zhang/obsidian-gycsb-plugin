@@ -42,6 +42,18 @@ export class YCSBSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}));
 
+		// Variables property name setting
+		new Setting(containerEl)
+			.setName('Variables property name')
+			.setDesc('The frontmatter property used to get variables (default: [>] variables)')
+			.addText(text => text
+				.setPlaceholder('[>] variables')
+				.setValue(this.plugin.settings.variablesPropertyName)
+				.onChange(async (value) => {
+					this.plugin.settings.variablesPropertyName = value || '[>] variables';
+					await this.plugin.saveSettings();
+				}));
+
 		// Running name template setting
 		new Setting(containerEl)
 			.setName('Running name template')

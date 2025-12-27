@@ -117,7 +117,8 @@ export default class YCSBBenchmarkPlugin extends Plugin {
 		const entries = await getRunnableBenchmarks(
 			this.app, 
 			basePath, 
-			this.settings.runPropertyName
+			this.settings.runPropertyName,
+			this.settings.variablesPropertyName
 		);
 		await runBenchmarks(
 			this.settings.apiUrl, 
@@ -135,7 +136,8 @@ export default class YCSBBenchmarkPlugin extends Plugin {
 			const entries = await getRunnableBenchmarks(
 				this.app, 
 				basePath,
-				this.settings.runPropertyName
+				this.settings.runPropertyName,
+				this.settings.variablesPropertyName
 			);
 			await runBenchmarks(
 				this.settings.apiUrl, 
