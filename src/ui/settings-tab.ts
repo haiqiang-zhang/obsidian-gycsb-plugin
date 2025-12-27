@@ -20,8 +20,8 @@ export class YCSBSettingTab extends PluginSettingTab {
 
 		// API URL setting
 		new Setting(containerEl)
-			.setName('YCSB Benchmark API URL')
-			.setDesc('The URL of your YCSB Server API endpoint')
+			.setName('gYCSB Server API URL')
+			.setDesc('The URL of your gYCSB Server API endpoint')
 			.addText(text => text
 				.setPlaceholder('http://localhost:5000/api/ycsb')
 				.setValue(this.plugin.settings.apiUrl)
